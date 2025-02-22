@@ -1,4 +1,6 @@
 import { Button } from "@/components/ui/button";
+import WhyChooseTatami from "../components/ui/WhyChooseTatami";
+
 import Link from "next/link";
 
 export default function Home() {
@@ -8,6 +10,11 @@ export default function Home() {
       <Link href="/app">
         <Button>Go to App</Button>
       </Link>
+
+      {/*Seccion WhyTatami  */}
+      <div className="mt-12 w-full">
+        <WhyChooseTatami />
+      </div>
     </div>
   );
 }
