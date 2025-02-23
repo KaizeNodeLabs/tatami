@@ -1,13 +1,13 @@
 import Link from "next/link";
 
-export const SocialSection = () => {
+export const SocialSection = ({ darkMode }: { darkMode: boolean }) => {
   const socials = [
     {
       id: "github-id",
       url: "https://github.com/KaizeNodeLabs/Tatami",
       iconSVG: (
         <svg
-          className="w-7 h-7"
+          className="w-7 h-7 text-gray-900 dark:text-white transition-colors"
           fill="currentColor"
           viewBox="0 0 24 24"
           aria-hidden="true"
@@ -25,7 +25,7 @@ export const SocialSection = () => {
       url: "https://x.com/TatamiDev",
       iconSVG: (
         <svg
-          className="w-7 h-7"
+          className="w-7 h-7 text-gray-900 dark:text-white transition-colors"
           fill="currentColor"
           viewBox="0 0 24 24"
           aria-hidden="true"
@@ -39,7 +39,7 @@ export const SocialSection = () => {
       url: "https://t.me/+e0d3hYFhXO0zMThh",
       iconSVG: (
         <svg
-          className="w-7 h-7"
+          className="w-7 h-7 text-gray-900 dark:text-white transition-colors"
           fill="currentColor"
           viewBox="0 0 24 24"
           aria-hidden="true"
@@ -52,14 +52,18 @@ export const SocialSection = () => {
 
   return (
     <div>
-      <h3 className="text-primary text-xl font-semibold mb-4">Social</h3>
+      <h3
+        className={`text-xl font-semibold mb-4 ${darkMode ? "text-white" : "text-black"}`}
+      >
+        Social
+      </h3>
       <div className="flex space-x-6">
         {socials.map((social) => {
           return (
             <Link
               key={social.id}
               href={social.url}
-              className="text-white hover:text-primary transition-colors"
+              className="transition-colors"
             >
               {social.iconSVG}
             </Link>

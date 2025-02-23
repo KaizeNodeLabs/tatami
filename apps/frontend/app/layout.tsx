@@ -1,7 +1,10 @@
-import type { Metadata } from "next";
+"use client";
+
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Footer } from "@/components/footer/footer";
+import Navbar from "@/components/navbar/Navbar";
+import { useEffect, useState } from "react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -13,24 +16,42 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: "Tatami",
-  description:
-    "A project designed to accelerate the development of Dojo Engine games within the Starknet ecosystem. It provides no-code tools to effortlessly create models, visualize entity relationships, and make modifications with just a few clicks. With Tatami, you can master the Dojo and build 10x faste",
-};
-
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const [darkMode, setDarkMode] = useState(false);
+
+  useEffect(() => {
+    const theme = localStorage.getItem("theme");
+    if (theme === "dark") {
+      document.documentElement.classList.add("dark");
+      setDarkMode(true);
+    }
+  }, []);
+
+  const toggleDarkMode = () => {
+    if (darkMode) {
+      document.documentElement.classList.remove("dark");
+      localStorage.setItem("theme", "light");
+    } else {
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("theme", "dark");
+    }
+    setDarkMode(!darkMode);
+  };
+
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased ${
+          darkMode ? "dark bg-black text-white" : "bg-white text-black"
+        }`}
       >
+        <Navbar darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
         {children}
-        <Footer />
+        <Footer darkMode={darkMode} />
       </body>
     </html>
   );
